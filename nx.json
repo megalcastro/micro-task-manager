@@ -1,10 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -38,7 +35,12 @@
         "targetName": "test"
       },
       "exclude": [
-        "apps/micro-task-manager-e2e/**/*"
+        "apps/micro-task-manager-e2e/**/*",
+        "tasks-create-e2e/**/*",
+        "apps/tasks-create-e2e/**/*",
+        "apps/tasks-read-e2e/**/*",
+        "apps/tasks-update-e2e/**/*",
+        "apps/tasks-delete-e2e/**/*"
       ]
     }
   ]

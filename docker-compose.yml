@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  tasks-create:
+    build:
+      context: ./apps/tasks-create
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - app-network
+
+  tasks-update:
+    build:
+      context: ./apps/tasks-update
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - app-network
+
+  tasks-delete:
+    build:
+      context: ./apps/tasks-delete
+    ports:
+      - "3003:3000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - app-network
+
+  tasks-fetch:
+    build:
+      context: ./apps/tasks-read
+    ports:
+      - "3004:3000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
