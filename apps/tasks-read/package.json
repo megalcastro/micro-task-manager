@@ -1,5 +1,5 @@
 {
-  "name": "tasks-create",
+  "name": "tasks-read",
   "version": "0.0.1",
   "scripts": {
     "start": "nest start",
