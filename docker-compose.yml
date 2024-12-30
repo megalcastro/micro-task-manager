@@ -31,7 +31,7 @@ services:
     networks:
       - app-network
 
-  tasks-fetch:
+  tasks-read:
     build:
       context: ./apps/tasks-read
     ports:

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES6",
+      "moduleResolution": "node",
+      "baseUrl": "./",
+      "paths": {
+        "@nestjs/*": ["node_modules/@nestjs/*"]
+      },
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+    },
+    "include": [
+      "apps/**/*",
+      "libs/**/*"
+    ]
+  }
+  
