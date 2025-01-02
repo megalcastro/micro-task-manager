@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly tasksService: TaskService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   createTask(
     @Body('title') title: string,

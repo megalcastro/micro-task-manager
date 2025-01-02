@@ -41,7 +41,8 @@
         "apps/tasks-read-e2e/**/*",
         "apps/tasks-update-e2e/**/*",
         "apps/tasks-delete-e2e/**/*",
-        "apps/tasks-create-e2e/**/*"
+        "apps/tasks-create-e2e/**/*",
+        "apps/auth-service-e2e/**/*"
       ]
     }
   ]
