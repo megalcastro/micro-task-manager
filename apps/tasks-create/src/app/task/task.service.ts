@@ -7,7 +7,8 @@ import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class TaskService {
-  private authServiceUrl = 'http://localhost:3005/api/auth/validate-token'
+
+  private authServiceUrl = `${process.env.AUTH_SERVICES_URL}/auth/validate-token`
 
   constructor(
     @InjectRepository(Task)
