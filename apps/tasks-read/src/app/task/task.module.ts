@@ -5,9 +5,11 @@ import { TaskService } from '../task/task.service';
 
 import { TaskController } from './task.controller';
 import { Task } from './task.entity';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
