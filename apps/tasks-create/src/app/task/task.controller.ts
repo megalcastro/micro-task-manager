@@ -1,20 +1,33 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Headers, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
-import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly tasksService: TaskService) {}
 
-  @UseGuards(JwtAuthGuard)
+
   @Post()
-  createTask(
+  async createTask(
     @Body('title') title: string,
     @Body('description') description: string,
     @Body('status') status: string,
     @Body('dueDate') dueDate: Date,
+    @Headers('Authorization') authHeader: string
   ): Promise<Task> {
+    if (!authHeader) {
+      throw new UnauthorizedException('Token is required');
+    }
+
+    const isValidate = await this.tasksService.validateToken(authHeader);
+
+    console.log('isValidate', authHeader);
+    if(!isValidate ){
+
+      throw new ForbiddenException('Invalid token!!!');
+    }
+
+
     return this.tasksService.createTask(title, description, status, dueDate);
   }
 
