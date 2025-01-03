@@ -13,7 +13,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: tasks_db
-      AUTH_SERVICES_URL: http://auth-service:3005
+      AUTH_SERVICES_URL: http://auth-service:3000
     networks:
       - app-network
     depends_on:
@@ -32,7 +32,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: tasks_db
-      AUTH_SERVICES_URL: http://auth-service:3005
+      AUTH_SERVICES_URL: http://auth-service:3000
     networks:
       - app-network
     depends_on:
@@ -51,7 +51,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: tasks_db
-      AUTH_SERVICES_URL: http://auth-service:3005
+      AUTH_SERVICES_URL: http://auth-service:3000
     networks:
       - app-network
     depends_on:
@@ -70,7 +70,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: tasks_db
-      AUTH_SERVICES_URL: http://auth-service:3005
+      AUTH_SERVICES_URL: http://auth-service:3000
     networks:
       - app-network
     depends_on:
@@ -81,7 +81,7 @@ services:
     build:
       context: ./apps/auth-service
     ports:
-      - "3005:3000"
+      - "3000:3000"
     environment:
       NODE_ENV: production
       JWT_SECRET: your_jwt_secret
