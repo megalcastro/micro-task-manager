@@ -1,6 +1,7 @@
 import { Controller, Post, Body, UseGuards, Headers, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
+import { CreateTaskDto } from './create-task.dto';
 
 @Controller('tasks')
 export class TaskController {
@@ -9,10 +10,7 @@ export class TaskController {
 
   @Post()
   async createTask(
-    @Body('title') title: string,
-    @Body('description') description: string,
-    @Body('status') status: string,
-    @Body('dueDate') dueDate: Date,
+    @Body() createTaskDto: CreateTaskDto,
     @Headers('Authorization') authHeader: string
   ): Promise<Task> {
     if (!authHeader) {
@@ -28,32 +26,7 @@ export class TaskController {
     }
 
 
-    return this.tasksService.createTask(title, description, status, dueDate);
+    return this.tasksService.createTask(createTaskDto);
   }
 
-//   @Get()
-//   getTasks(): Promise<Task[]> {
-//     return this.tasksService.getTasks();
-//   }
-
-//   @Get(':id')
-//   getTaskById(@Param('id') id: number): Promise<Task> {
-//     return this.tasksService.getTaskById(id);
-//   }
-
-//   @Put(':id')
-//   updateTask(
-//     @Param('id') id: number,
-//     @Body('title') title: string,
-//     @Body('description') description: string,
-//     @Body('status') status: string,
-//     @Body('dueDate') dueDate: Date,
-//   ): Promise<Task> {
-//     return this.tasksService.updateTask(id, title, description, status, dueDate);
-//   }
-
-//   @Delete(':id')
-//   deleteTask(@Param('id') id: number): Promise<void> {
-//     return this.tasksService.deleteTask(id);
-//   }
 }

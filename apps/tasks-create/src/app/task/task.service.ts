@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Task } from './task.entity';
 import { lastValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
+import { CreateTaskDto } from './create-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -32,12 +33,12 @@ export class TaskService {
   }
 
 
-  async createTask(title: string, description: string, status: string, dueDate: Date): Promise<Task> {
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const task = new Task();
-    task.title = title;
-    task.description = description;
-    task.status = status;
-    task.dueDate = dueDate;
+    task.title = createTaskDto.title;
+    task.description = createTaskDto.description;
+    task.status = createTaskDto.status;
+    task.dueDate = createTaskDto.dueDate;
 
     return this.tasksRepository.save(task);
   }
