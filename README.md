@@ -1,101 +1,115 @@
-# MicroTaskManager
+# Micro Task Manager
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Descripción
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+Este proyecto es una aplicación de gestión de tareas que permite crear, editar y eliminar tareas. La aplicación está construida utilizando **NestJS** para los microservicios y **Docker** para la contenerización, con un monorepo gestionado con **NX**.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Requisitos previos
 
-## Run tasks
+Asegúrate de tener instalado lo siguiente:
 
-To run the dev server for your app, use:
+- [Node.js](https://nodejs.org/) (versión 16 o superior)
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Colima](https://github.com/abiosoft/colima) (Si usas MacOS para ejecutar Docker con Colima)
+- [NX CLI](https://nx.dev/) (para gestionar el monorepo)
 
-```sh
-npx nx serve micro-task-manager
-```
+## Instalación
 
-To create a production bundle:
+1. **Clona el repositorio:**
 
-```sh
-npx nx build micro-task-manager
-```
+    ```bash
+    git clone https://github.com/megalcastro/micro-task-manager.git
+    cd micro-task-manager
+    ```
 
-To see all available targets to run for a project, run:
+2. **Instala las dependencias:**
 
-```sh
-npx nx show project micro-task-manager
-```
+    Si estás usando **Node.js** directamente:
+    
+    ```bash
+    npm install
+    ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+    Si estás trabajando dentro de un monorepo gestionado con **NX**, puedes instalar todas las dependencias necesarias:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+    ```bash
+    npx nx install
+    ```
 
-## Add new projects
+## Configuración de Docker
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+1. **Inicia Colima (si estás en MacOS):**
 
-Use the plugin's generator to create new projects.
+    ```bash
+    colima start --runtime docker
+    ```
 
-To generate a new application, use:
+2. **Construye e inicia los contenedores:**
 
-```sh
-npx nx g @nx/node:app demo
-```
+    Utiliza **Docker Compose** para construir y ejecutar los servicios. Asegúrate de estar en la raíz del proyecto y de tener el archivo `docker-compose.yml` configurado correctamente.
 
-To generate a new library, use:
+    ```bash
+    docker-compose up --build
+    ```
 
-```sh
-npx nx g @nx/node:lib mylib
-```
+    Esto iniciará los servicios, incluyendo los microservicios de la aplicación, como `tasks-create`, `auth-service`,`task-update`,`task-delete`,`task-read` y cualquier otro que esté configurado en el archivo **docker-compose.yml**.
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Ejecución local (sin Docker)
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Si prefieres ejecutar la aplicación sin Docker, sigue estos pasos:
 
-## Set up CI!
+1. **Inicia el servidor de desarrollo de NestJS:**
 
-### Step 1
+    ```bash
+    npm run start:dev
+    ```
 
-To connect to Nx Cloud, run the following command:
+2. **Accede a la aplicación en:**
+    
+    - `http://localhost:3000/api` para el servicio de tareas.
+    - `http://localhost:3001/api` para el servicio de autenticación (si se tiene configurado).
 
-```sh
-npx nx connect
-```
+## Pruebas
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+1. **Pruebas unitarias:**
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+    Ejecuta las pruebas unitarias para cada microservicio de la siguiente manera:
 
-### Step 2
+    ```bash
+    npx nx test <nombre-del-servicio>
+    ```
 
-Use the following command to configure a CI workflow for your workspace:
+    Asegúrate de reemplazar `<nombre-del-servicio>` por el nombre del microservicio que deseas probar, por ejemplo: `tasks-create`.
 
-```sh
-npx nx g ci-workflow
-```
+2. **Pruebas de integración:**
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+    También puedes ejecutar pruebas de integración si has configurado pruebas para los endpoints de la API:
 
-## Install Nx Console
+    ```bash
+    npx nx e2e <nombre-del-servicio>-e2e
+    ```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## Scripts útiles
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `npm run build`: Construye la aplicación para producción.
+- `npm run start:dev`: Inicia la aplicación en modo desarrollo.
+- `npm run lint`: Ejecuta el linter para comprobar la calidad del código.
+- `npm run test`: Ejecuta las pruebas unitarias.
 
-## Useful links
+## Contribuciones
 
-Learn more:
+Si deseas contribuir al proyecto, por favor sigue estos pasos:
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. Haz un fork del repositorio.
+2. Crea una rama para tu nueva característica o corrección de errores.
+3. Realiza tus cambios y asegúrate de que el código siga las convenciones de estilo del proyecto.
+4. Envía un **pull request** para que revisemos tus cambios.
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Licencia
+
+Este proyecto está licenciado bajo la **MIT License**. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
+---
+
+¡Gracias por contribuir y usar el Micro Task Manager! 🚀
