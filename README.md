@@ -8,7 +8,7 @@ Este proyecto es una aplicación de gestión de tareas que permite crear, editar
 
 Asegúrate de tener instalado lo siguiente:
 
-- [Node.js](https://nodejs.org/) (versión 16 o superior)
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Colima](https://github.com/abiosoft/colima) (Si usas MacOS para ejecutar Docker con Colima)
@@ -23,7 +23,7 @@ Asegúrate de tener instalado lo siguiente:
     cd micro-task-manager
     ```
 
-2. **Instala las dependencias:**
+2. **Instala las dependencias en la raiz del proyecto:**
 
     Si estás usando **Node.js** directamente:
     
@@ -31,15 +31,15 @@ Asegúrate de tener instalado lo siguiente:
     npm install
     ```
 
-    Si estás trabajando dentro de un monorepo gestionado con **NX**, puedes instalar todas las dependencias necesarias:
+    Para este proyecto ya que se uso **NX** par al gestion de monorepos se recomienda instalar como depencia global:
 
     ```bash
-    npx nx install
+    npm install -g nx
     ```
 
 ## Configuración de Docker
 
-1. **Inicia Colima (si estás en MacOS):**
+1. **Inicia Colima (si estás en MacOS) (O Usa Docker desktop ):**
 
     ```bash
     colima start --runtime docker
@@ -53,13 +53,23 @@ Asegúrate de tener instalado lo siguiente:
     docker-compose up --build
     ```
 
-    Esto iniciará los servicios, incluyendo los microservicios de la aplicación, como `tasks-create`, `auth-service`,`task-update`,`task-delete`,`task-read` y cualquier otro que esté configurado en el archivo **docker-compose.yml**.
+3. en el documento de Notion adjuntare un archivos con las colecciones de POSTMAN para la ejecuccion de endpoint y pruebas
+   
+   ----
+
+    Esto iniciará los servicios, incluyendo los microservicios de la aplicación, como `tasks-create`, `auth-service`,`task-update`,`task-delete`,`task-read` `postgret sql` y cualquier otro que esté configurado en el archivo **docker-compose.yml**.
 
 ## Ejecución local (sin Docker)
 
 Si prefieres ejecutar la aplicación sin Docker, sigue estos pasos:
 
-1. **Inicia el servidor de desarrollo de NestJS:**
+1. **Inicia el servidor de desarrollo de NestJS por cada proyecto que se encuentra en la carpeta apps :**
+     
+     ```bash
+    npm install
+    ```
+
+
 
     ```bash
     npm run start:dev
@@ -76,13 +86,18 @@ Si prefieres ejecutar la aplicación sin Docker, sigue estos pasos:
 
     Ejecuta las pruebas unitarias para cada microservicio de la siguiente manera:
 
+    1 :  navega hasta la carpeta 
+    ```
+    cd apps/task-create
+    ```
+
     ```bash
-    npx nx test <nombre-del-servicio>
+    npx nx test tasks-create
     ```
 
     Asegúrate de reemplazar `<nombre-del-servicio>` por el nombre del microservicio que deseas probar, por ejemplo: `tasks-create`.
 
-2. **Pruebas de integración:**
+2. **Pruebas de integración: (No implementadas)**
 
     También puedes ejecutar pruebas de integración si has configurado pruebas para los endpoints de la API:
 
