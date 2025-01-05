@@ -16,20 +16,6 @@ export class TaskService {
   ) {}
 
 
-//   async updateTask(id: number, title: string, description: string, status: string, dueDate: Date): Promise<Task> {
-//     const task = await this.tasksRepository.findOne(id);
-//     if (!task) {
-//       throw new Error('Task not found');
-//     }
-//     task.title = title;
-//     task.description = description;
-//     task.status = status;
-//     task.dueDate = dueDate;
-
-//     return this.tasksRepository.save(task);
-//   }
-
-
 async validateToken(token: string) {
   try {
     const response = await lastValueFrom(
