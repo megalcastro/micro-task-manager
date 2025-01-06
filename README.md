@@ -82,22 +82,18 @@ Si prefieres ejecutar la aplicación sin Docker, sigue estos pasos:
 
 ## Pruebas
 
-1. **Pruebas unitarias:**
+1. **Unit testing:**
 
-    Ejecuta las pruebas unitarias para cada microservicio de la siguiente manera:
-
-    1 :  navega hasta la carpeta 
-    ```
-    cd apps/task-create
-    ```
+    En la raiz del proyecto ejecutar el siguiente comando para ejecutar todas las pruebas relacionadas:
+    
 
     ```bash
-    npx nx test tasks-create
+    npx nx run-many --target=test --all
     ```
 
-    Asegúrate de reemplazar `<nombre-del-servicio>` por el nombre del microservicio que deseas probar, por ejemplo: `tasks-create`.
 
-2. **Pruebas de integración: (No implementadas)**
+
+1. **Pruebas de integración: (No implementadas)**
 
     También puedes ejecutar pruebas de integración si has configurado pruebas para los endpoints de la API:
 
